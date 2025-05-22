@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,8 +11,7 @@ app.use(express.json());
 // hobbyDB
 // NYjXAEEJK6PDJEOC
 // mongoDB uri.
-const uri =
-  "mongodb+srv://hobbyDB:NYjXAEEJK6PDJEOC@cluster1.1w25q2x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster1.1w25q2x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1`;
 
 // mongo client
 const client = new MongoClient(uri, {
