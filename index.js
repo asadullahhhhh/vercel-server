@@ -33,6 +33,7 @@ async function run() {
       // mongoDB collections
       const bannerCollection = client.db("hobbyDB").collection("hobbyBanner");
       const groupsCollection = client.db("hobbyDB").collection("groupsDB");
+      const usersCollections = client.db("hobbyDB").collection("userDB");
 
       app.get("/banners", async (req, res) => {
         const cursor = bannerCollection.find();
@@ -58,6 +59,13 @@ async function run() {
         const result = await groupsCollection.insertOne(data);
         res.send(result);
       });
+
+    //   users collection
+    app.get("/users", async (req, res) => {
+      const pointer = usersCollections.find();
+      const usersData = await pointer.toArray();
+      res.send(usersData);
+    });
     }
     finally{
 
