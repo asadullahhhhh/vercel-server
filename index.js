@@ -24,14 +24,20 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try{
-        await client.connect()
-        await client.db("admin").command({ping : 1})
-        console.log(
-          "Pinged your deployment. You successfully connected to MongoDB!"
-        );
+      await client.connect();
+      await client.db("admin").command({ ping: 1 });
+      console.log(
+        "Pinged your deployment. You successfully connected to MongoDB!"
+      );
 
-       
+      // mongoDB collections
+      const bannerCollection = client.db("hobbyDB").collection("hobbyBanner");
 
+      app.get("/banners", async (req, res) => {
+        const cursor = bannerCollection.find();
+        const banners = await cursor.toArray();
+        res.send(banners);
+      });
     }
     finally{
 
