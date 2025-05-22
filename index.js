@@ -52,6 +52,12 @@ async function run() {
         const result = await groupsCollection.findOne(query);
         res.send(result);
       });
+
+      app.post("/groups", async (req, res) => {
+        const data = req.body;
+        const result = await groupsCollection.insertOne(data);
+        res.send(result);
+      });
     }
     finally{
 
