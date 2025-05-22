@@ -73,6 +73,12 @@ async function run() {
       const result = await usersCollections.findOne(query);
       res.send(result);
     });
+
+    app.post("/users", async (req, res) => {
+      const userData = req.body;
+      const result = await usersCollections.insertOne(userData);
+      res.send(result);
+    });
   } finally {
   }
 }
