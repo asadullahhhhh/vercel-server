@@ -79,6 +79,18 @@ async function run() {
       const result = await usersCollections.insertOne(userData);
       res.send(result);
     });
+
+    app.put("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updateData = req.body;
+      const updateDocs = {
+        $set: updateData,
+      };
+
+      const result = await usersCollections.updateOne(query, updateDocs);
+      res.send(result);
+    });
   } finally {
   }
 }
