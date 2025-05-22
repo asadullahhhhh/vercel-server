@@ -60,6 +60,18 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/groups/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updateData = req.body;
+      const updateDocs = {
+        $set: updateData,
+      };
+
+      const result = await groupsCollection.updateOne(query, updateDocs);
+      res.send(result);
+    });
+
     //   users collection
     app.get("/users", async (req, res) => {
       const pointer = usersCollections.find();
@@ -89,6 +101,14 @@ async function run() {
       };
 
       const result = await usersCollections.updateOne(query, updateDocs);
+      res.send(result);
+    });
+
+    // group delete method 
+    app.delete("/groups/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await groupsCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
