@@ -8,8 +8,6 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// hobbyDB
-// NYjXAEEJK6PDJEOC
 // mongoDB uri.
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster1.1w25q2x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1`;
 
@@ -34,6 +32,10 @@ async function run() {
     const bannerCollection = client.db("hobbyDB").collection("hobbyBanner");
     const groupsCollection = client.db("hobbyDB").collection("groupsDB");
     const usersCollections = client.db("hobbyDB").collection("userDB");
+
+    app.get("/", (req, res) => {
+      res.send("Server running successfully");
+    });
 
     app.get("/banners", async (req, res) => {
       const cursor = bannerCollection.find();
@@ -117,9 +119,7 @@ async function run() {
 
 run().catch(console.dir);
 
-app.get("/", (req, res) => {
-  res.send("Server running successfully");
-});
+
 
 app.listen(port, () => {
   console.log("Running");
